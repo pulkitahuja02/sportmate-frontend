@@ -11,6 +11,7 @@ const EmailVerification = () => {
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
+    console.log("Email otp bhejne wala function called from frontend")
     // Basic email validation
     if (!email || !email.includes('@')) {
       setError('Please enter a valid email address');
