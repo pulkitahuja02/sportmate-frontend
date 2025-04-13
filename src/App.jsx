@@ -5,6 +5,7 @@ import Dashboard from "./pages/Dashboard";
 import MyProfile from "./pages/MyProfile";
 import SignupPage from "./pages/SignupPage";  // ✅ Import SignupPage
 import EmailVerification from "./pages/EmailVerification";  // ✅ Import EmailVerification
+import EnterOTP from "./pages/EnterOTP";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/MyProfile" element={<MyProfile />} />
           <Route path="/email-verification" element={<EmailVerification />} />
+          <Route path="/enter-otp" element={<EnterOTP />} /> 
           <Route path="/signup" element={<SignupPage />} />  {/* ✅ Add Route */}
         </Routes>
       </Router>
