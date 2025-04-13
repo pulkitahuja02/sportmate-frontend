@@ -32,7 +32,7 @@ const EmailVerification = () => {
       const data = await response.json();
 
       if (response.ok) {
-        navigate('/signup', { state: { email } }); // Pass email to signup page
+        navigate('/enter-otp', { state: { email } }); // ✅ OTP enter page pe redirect
       } else {
         setError(data.message || 'Failed to send OTP');
       }
