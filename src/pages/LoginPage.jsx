@@ -15,8 +15,7 @@ const LoginPage = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    // Validation logic
+  const handleLogin = async () => {
     if (!username && !password) {
       setError("Please enter valid credentials");
       return;
@@ -27,15 +26,30 @@ const LoginPage = () => {
       setError("Please enter your password");
       return;
     }
-
+  
     setError("");
     setIsLoading(true);
-    
-    // Simulate API call
-    setTimeout(() => {
+  
+    try {
+      const response = await fetch("https://sportmate-backend-i35i.onrender.com/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password })
+      });
+  
+      const data = await response.json();
+  
+      if (response.ok) {
+        navigate("/dashboard");
+      } else {
+        setError(data.error || "Login failed");
+      }
+    } catch (err) {
+      console.error("Login error:", err);
+      setError("Network error. Please try again.");
+    } finally {
       setIsLoading(false);
-      navigate("/dashboard");
-    }, 2000);
+    }
   };
 
   return (
@@ -49,7 +63,7 @@ const LoginPage = () => {
        type="text"
        value={username}
        onChange={(e) => setUsername(e.target.value)}
-       placeholder="Enter your username"
+       placeholder="Enter your username here"
       />
 
       {/* Password Input */}
