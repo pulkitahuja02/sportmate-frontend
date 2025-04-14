@@ -5,7 +5,7 @@ const ProfileFetcher = ({ setUsername, setAvatarLink, setStatusMsg }) => {
     // Fetch user profile data when the component mounts
     const fetchUserProfile = async () => {
       try {
-        const response = await fetch("/api/user/profile", { method: "GET" });
+        const response = await fetch("/api/auth/profile", { method: "GET" });
         const data = await response.json();
         
         // Set values in parent component using the passed setters

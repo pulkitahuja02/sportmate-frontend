@@ -7,7 +7,7 @@ const SaveProfile = ({ username, selectedAvatar, status }) => {
 
   const handleSave = async () => {
     try {
-      const response = await fetch("/api/profile", {
+      const response = await fetch("/api/auth/profile", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
