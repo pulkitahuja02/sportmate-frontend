@@ -1,26 +1,13 @@
 import React, { useState } from "react";
-import { FaUserCircle, FaStar } from "react-icons/fa";
+import AvatarSelector from "../components/AvatarSelector";
+import StatusInput from "../components/StatusInput";
+import ProfileFetcher from "../components/ProfileFetcher";
+import SaveProfile from "../components/SaveProfile";
 
 const MyProfile = () => {
-  const [selectedSports, setSelectedSports] = useState([]);
-  const [ratings, setRatings] = useState({});
-
-  // List of sports to choose from
-  const sportsList = ["Football", "Basketball", "Tennis", "Cricket", "Swimming"];
-
-  // Handle sport selection
-  const handleSportSelection = (sport) => {
-    if (selectedSports.includes(sport)) {
-      setSelectedSports(selectedSports.filter((item) => item !== sport));
-    } else {
-      setSelectedSports([...selectedSports, sport]);
-    }
-  };
-
-  // Handle rating change
-  const handleRatingChange = (sport, rating) => {
-    setRatings({ ...ratings, [sport]: rating });
-  };
+  const [username, setUsername] = useState("");
+  const [selectedAvatar, setSelectedAvatar] = useState("");
+  const [status, setStatus] = useState("");
 
   return (
     <div className="min-h-screen bg-gray-100 py-8 px-4 sm:px-6 lg:px-8">
@@ -28,60 +15,52 @@ const MyProfile = () => {
         {/* Page Title */}
         <h1 className="text-3xl font-bold text-green-700 mb-8">My Profile</h1>
 
-        {/* Upload Image Section */}
+        {/* Fetch User Profile Data */}
+        <ProfileFetcher
+          setUsername={setUsername}
+          setAvatarLink={setSelectedAvatar}
+          setStatusMsg={setStatus}
+        />
+
+        {/* Display Username */}
         <div className="mb-8">
-          <h2 className="text-xl font-semibold text-green-700 mb-4">Upload Your Image</h2>
-          <div className="flex items-center justify-center w-full">
-            <label className="flex flex-col items-center px-4 py-6 bg-green-50 text-green-700 rounded-lg shadow tracking-wide border border-green-300 cursor-pointer hover:bg-green-100">
-              <FaUserCircle className="w-12 h-12 mb-2" />
-              <span className="mt-2 text-base leading-normal">Upload a file</span>
-              <input type="file" className="hidden" />
-            </label>
-          </div>
+          <h2 className="text-xl font-semibold text-green-700 mb-4">Username: {username}</h2>
         </div>
 
-        {/* Choose Favorite Sports Section */}
+        {/* Avatar Section */}
         <div className="mb-8">
-          <h2 className="text-xl font-semibold text-green-700 mb-4">Choose Your Favorite Sports</h2>
-          <div className="grid grid-cols-2 gap-4">
-            {sportsList.map((sport) => (
-              <div
-                key={sport}
-                className={`p-4 rounded-lg cursor-pointer ${
-                  selectedSports.includes(sport)
-                    ? "bg-green-100 border-2 border-green-500"
-                    : "bg-gray-50 border-2 border-gray-200"
-                }`}
-                onClick={() => handleSportSelection(sport)}
-              >
-                <span className="text-green-700 font-medium">{sport}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Rating for Each Sport Section */}
-        <div>
-          <h2 className="text-xl font-semibold text-green-700 mb-4">Rate Your Favorite Sports</h2>
-          {selectedSports.map((sport) => (
-            <div key={sport} className="mb-4">
-              <h3 className="text-lg font-medium text-green-700 mb-2">{sport}</h3>
-              <div className="flex items-center">
-                {[1, 2, 3, 4, 5].map((star) => (
-                  <button
-                    key={star}
-                    onClick={() => handleRatingChange(sport, star)}
-                    className={`text-2xl ${
-                      ratings[sport] >= star ? "text-green-500" : "text-gray-300"
-                    }`}
-                  >
-                    <FaStar />
-                  </button>
-                ))}
-              </div>
+          {selectedAvatar ? (
+            <div className="mb-4">
+              <p className="text-gray-700 mb-2">Current Avatar:</p>
+              <img src={selectedAvatar} alt="Avatar" className="w-32 h-32 rounded-full" />
             </div>
-          ))}
+          ) : (
+            <p className="mb-2 text-gray-500">Select an avatar:</p>
+          )}
+          <AvatarSelector
+            selectedAvatar={selectedAvatar}
+            setSelectedAvatar={setSelectedAvatar}
+          />
         </div>
+
+        {/* Status Section */}
+        <div className="mb-8">
+          {status ? (
+            <div className="mb-2">
+              <p className="text-gray-700">Current Status: {status}</p>
+            </div>
+          ) : (
+            <p className="mb-2 text-gray-500">Set a status message:</p>
+          )}
+          <StatusInput status={status} setStatus={setStatus} />
+        </div>
+
+        {/* Save Profile Button */}
+        <SaveProfile
+          username={username}
+          selectedAvatar={selectedAvatar}
+          status={status}
+        />
       </div>
     </div>
   );
