@@ -34,7 +34,8 @@ const LoginPage = () => {
       const response = await fetch("https://sportmate-backend-i35i.onrender.com/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password })
+        body: JSON.stringify({ username, password }),
+        credentials: "include"  // 👈 This ensures the session cookie is sent
       });
   
       const data = await response.json();
