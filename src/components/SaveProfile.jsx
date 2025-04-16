@@ -17,6 +17,7 @@ const SaveProfile = ({ username, selectedAvatar, status }) => {
           avatarlink: selectedAvatar,
           status_msg: status,
         }),
+        credentials: "include", // ✅ Add this line
       });
 
       const data = await response.json();
