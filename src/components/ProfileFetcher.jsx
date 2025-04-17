@@ -8,7 +8,7 @@ const ProfileFetcher = ({ setUsername, setAvatarLink, setStatusMsg }) => {
       try {
         const response = await fetch("https://sportmate-backend-i35i.onrender.com/api/auth/profile", {
           method: "GET",
-          credentials: "include", // Include this if you're using cookies/sessions
+          credentials: "include",
         });
 
         console.log("ProfileFetcher 2: Received response", response);
@@ -17,13 +17,18 @@ const ProfileFetcher = ({ setUsername, setAvatarLink, setStatusMsg }) => {
 
         console.log("ProfileFetcher 3: Parsed JSON", data);
 
-        setUsername(data.username);
+        // Set default values if data is not available
+        setUsername(data.username || "PULKIT SIR");
         setAvatarLink(data.avatarlink || "");
         setStatusMsg(data.status_msg || "");
 
         console.log("ProfileFetcher 4: Set state with data");
       } catch (error) {
         console.error("ProfileFetcher Error:", error);
+        // Set defaults if fetch fails
+        setUsername("PULKIT SIR");
+        setAvatarLink("");
+        setStatusMsg("");
       }
     };
 
