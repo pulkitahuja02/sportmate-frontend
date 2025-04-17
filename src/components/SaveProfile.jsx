@@ -7,7 +7,7 @@ const SaveProfile = ({ username, selectedAvatar, status }) => {
 
   const handleSave = async () => {
     try {
-      const response = await fetch("https://sportmate-backend-i35i.onrender.com/api/auth/profile", {
+      const response = await fetch("https://sportmate-backend-i35i.onrender.com/api/auth/update-profile", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
